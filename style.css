@@ -1,0 +1,153 @@
+:root {
+    --bg-color: #080c14; /* Azul noche muy oscuro y elegante */
+    --glow-color: rgba(56, 133, 255, 0.12); /* Brillo azul ambiental */
+    --text-primary: #f0f4f8;
+    --text-accent: #fcd34d; /* Amarillo dorado cálido para destacar */
+    --text-secondary: #8da4c4; /* Azul grisáceo suave para los idiomas */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Luz ambiental suave en el fondo (combinando toques azules y destellos) */
+.background-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: pulseGlow 6s infinite alternate ease-in-out;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Lienzo donde se posicionarán las palabras */
+.heart-canvas {
+    position: relative;
+    width: 600px;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo de cada palabra individual */
+.love-word {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    user-select: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+    cursor: default;
+}
+
+.love-word.visible {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Efecto interactivo al pasar el ratón por encima (cambia a amarillo dorado intenso con brillo azulado) */
+.love-word:hover {
+    color: var(--text-accent);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.35) !important;
+    text-shadow: 0 0 15px rgba(252, 211, 77, 0.6), 0 0 5px rgba(56, 133, 255, 0.8);
+    z-index: 10;
+}
+
+/* Mensaje central */
+.center-message {
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.center-message.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.center-message h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text-accent);
+    text-shadow: 0 0 25px rgba(252, 211, 77, 0.3);
+    margin-bottom: 0.3rem;
+}
+
+.center-message p {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+/* Animación de latido suave cuando el corazón está completo */
+.heart-beat {
+    animation: heartbeat 3s infinite ease-in-out;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.03); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.02); }
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(0.9); opacity: 0.7; }
+    100% { transform: scale(1.15); opacity: 1; }
+}
+
+/* Adaptación para pantallas móviles */
+@media (max-width: 650px) {
+    .heart-canvas {
+        width: 340px;
+        height: 320px;
+    }
+    .love-word {
+        font-size: 0.75rem;
+    }
+    .center-message h1 {
+        font-size: 2.3rem;
+    }
+    .center-message p {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+    }
+}
