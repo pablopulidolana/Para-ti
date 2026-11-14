@@ -1,10 +1,8 @@
 :root {
     --bg-color: #080c14;
     --glow-color: rgba(56, 133, 255, 0.14);
-    --text-primary: #f0f4f8;
     --blue-tone: #60a5fa;   /* Azul vibrante suave */
     --yellow-tone: #fcd34d; /* Amarillo dorado cálido */
-    --text-secondary: #cbd5e1;
 }
 
 * {
@@ -15,7 +13,6 @@
 
 body {
     background-color: var(--bg-color);
-    color: var(--text-primary);
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
     display: flex;
@@ -48,8 +45,8 @@ body {
 
 .heart-canvas {
     position: relative;
-    width: 650px;
-    height: 600px;
+    width: 680px;
+    height: 620px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,12 +62,12 @@ body {
     user-select: none;
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.4);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
     cursor: default;
 }
 
 .love-word.visible {
-    opacity: 0.85;
+    opacity: 0.88;
     transform: translate(-50%, -50%) scale(1);
 }
 
@@ -85,47 +82,12 @@ body {
     text-shadow: 0 0 8px rgba(252, 211, 77, 0.25);
 }
 
-/* Efecto al pasar el ratón */
+/* Efecto al pasar el ratón por encima de cada palabra */
 .love-word:hover {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.45) !important;
     z-index: 20;
     text-shadow: 0 0 14px currentColor;
-}
-
-/* Mensaje central con fondo difuminado para que destaque sobre el relleno */
-.center-message {
-    text-align: center;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 1.5s ease, transform 1.5s ease;
-    pointer-events: none;
-    z-index: 10;
-    background: radial-gradient(circle, rgba(8, 12, 20, 0.92) 35%, rgba(8, 12, 20, 0.6) 65%, transparent 100%);
-    padding: 25px 40px;
-    border-radius: 50%;
-}
-
-.center-message.visible {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.center-message h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3.4rem;
-    font-weight: 600;
-    font-style: italic;
-    color: var(--yellow-tone);
-    text-shadow: 0 0 25px rgba(252, 211, 77, 0.5), 0 0 10px rgba(96, 165, 250, 0.5);
-    margin-bottom: 0.2rem;
-}
-
-.center-message p {
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-secondary);
 }
 
 .heart-beat {
@@ -145,22 +107,12 @@ body {
 }
 
 /* Adaptación móvil */
-@media (max-width: 650px) {
+@media (max-width: 680px) {
     .heart-canvas {
         width: 350px;
         height: 330px;
     }
     .love-word {
-        font-size: 0.62rem;
-    }
-    .center-message {
-        padding: 15px 25px;
-    }
-    .center-message h1 {
-        font-size: 2.2rem;
-    }
-    .center-message p {
         font-size: 0.6rem;
-        letter-spacing: 1px;
     }
 }
