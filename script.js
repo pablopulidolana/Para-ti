@@ -11,30 +11,26 @@ const phrases = [
 ];
 
 const canvas = document.getElementById('heart-canvas');
-const centerMessage = document.getElementById('center-message');
 
 function drawFilledHeart() {
     const existingWords = document.querySelectorAll('.love-word');
     existingWords.forEach(word => word.remove());
 
-    const isMobile = window.innerWidth <= 650;
+    const isMobile = window.innerWidth <= 680;
     const width = canvas.offsetWidth;
     const height = canvas.offsetHeight;
     const centerX = width / 2;
     const centerY = height / 2 - (isMobile ? 8 : 15);
 
-    // Espaciado de la cuadrícula para rellenar el interior
-    const stepX = isMobile ? 28 : 44;
-    const stepY = isMobile ? 16 : 24;
-    const scale = isMobile ? 125 : 225;
+    // Espaciado más compacto para un relleno más denso
+    const stepX = isMobile ? 24 : 38;
+    const stepY = isMobile ? 14 : 21;
+    const scale = isMobile ? 130 : 240;
 
     const validPoints = [];
 
-    // Recorrer el área y guardar solo los puntos que caen dentro del corazón
     for (let py = -height / 2; py <= height / 2; py += stepY) {
         for (let px = -width / 2; px <= width / 2; px += stepX) {
-            // Normalizar coordenadas para la ecuación matemática del corazón
-            // Se invierte Y porque en pantalla Y crece hacia abajo
             const nx = px / scale;
             const ny = -(py + (isMobile ? 10 : 20)) / scale;
 
@@ -43,9 +39,8 @@ function drawFilledHeart() {
             const heartValue = a * a * a - nx * nx * ny * ny * ny;
 
             if (heartValue <= 0) {
-                // Añadir un pequeño toque aleatorio en la posición para que no parezca una tabla rígida
-                const jitterX = (Math.random() - 0.5) * (stepX * 0.45);
-                const jitterY = (Math.random() - 0.5) * (stepY * 0.45);
+                const jitterX = (Math.random() - 0.5) * (stepX * 0.4);
+                const jitterY = (Math.random() - 0.5) * (stepY * 0.4);
 
                 validPoints.push({
                     x: centerX + px + jitterX,
@@ -55,18 +50,17 @@ function drawFilledHeart() {
         }
     }
 
-    // Mezclar el orden de aparición de los puntos aleatoriamente
+    // Mezclar orden de aparición aleatoriamente
     validPoints.sort(() => Math.random() - 0.5);
 
     validPoints.forEach((point, index) => {
         const span = document.createElement('span');
         span.classList.add('love-word');
 
-        // Elegir un idioma al azar de la lista
         const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
         span.textContent = randomPhrase;
 
-        // Intercalar amarillo y azul sin orden concreto (50% probabilidad cada uno)
+        // Intercalar azul y amarillo sin orden concreto
         if (Math.random() < 0.5) {
             span.classList.add('color-blue');
         } else {
@@ -78,16 +72,14 @@ function drawFilledHeart() {
 
         canvas.appendChild(span);
 
-        // Aparición progresiva rápida para rellenar todo el corazón
         setTimeout(() => {
             span.classList.add('visible');
-        }, index * 18);
+        }, index * 12);
     });
 
-    // Mostrar el mensaje central y activar el latido al terminar el relleno
-    const totalAnimationTime = validPoints.length * 18 + 300;
+    // Activar el latido suave cuando se termina de rellenar el corazón
+    const totalAnimationTime = validPoints.length * 12 + 300;
     setTimeout(() => {
-        centerMessage.classList.add('visible');
         canvas.classList.add('heart-beat');
     }, totalAnimationTime);
 }
@@ -98,7 +90,6 @@ let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-        centerMessage.classList.remove('visible');
         canvas.classList.remove('heart-beat');
         drawFilledHeart();
     }, 300);
