@@ -1,8 +1,10 @@
 :root {
-    --bg-color: #080c14;
-    --glow-color: rgba(56, 133, 255, 0.14);
-    --blue-tone: #60a5fa;   /* Azul vibrante suave */
-    --yellow-tone: #fcd34d; /* Amarillo dorado cálido */
+    --bg-color: #070b12;
+    --glow-color: rgba(56, 133, 255, 0.16);
+    --blue-tone: #60a5fa;
+    --blue-bright: #93c5fd;
+    --yellow-tone: #fcd34d;
+    --yellow-bright: #fef08a;
 }
 
 * {
@@ -30,7 +32,7 @@ body {
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
-    animation: pulseGlow 6s infinite alternate ease-in-out;
+    animation: pulseGlow 5s infinite alternate ease-in-out;
 }
 
 .container {
@@ -45,8 +47,8 @@ body {
 
 .heart-canvas {
     position: relative;
-    width: 680px;
-    height: 620px;
+    width: 650px;
+    height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,63 +58,65 @@ body {
 .love-word {
     position: absolute;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.85rem;
-    font-weight: 600;
     white-space: nowrap;
     user-select: none;
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.4);
-    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
+    /* Empiezan pequeñas y algo desplazadas para crear efecto de entrada dinámica */
+    transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), text-shadow 0.3s ease;
     cursor: default;
 }
 
 .love-word.visible {
-    opacity: 0.88;
-    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.92;
 }
 
-/* Clases de color intercaladas */
+/* Variaciones de color azul y amarillo */
 .color-blue {
     color: var(--blue-tone);
-    text-shadow: 0 0 8px rgba(96, 165, 250, 0.25);
+    text-shadow: 0 0 8px rgba(96, 165, 250, 0.35);
+}
+
+.color-blue-bright {
+    color: var(--blue-bright);
+    text-shadow: 0 0 10px rgba(147, 197, 253, 0.45);
 }
 
 .color-yellow {
     color: var(--yellow-tone);
-    text-shadow: 0 0 8px rgba(252, 211, 77, 0.25);
+    text-shadow: 0 0 8px rgba(252, 211, 77, 0.35);
 }
 
-/* Efecto al pasar el ratón por encima de cada palabra */
+.color-yellow-bright {
+    color: var(--yellow-bright);
+    text-shadow: 0 0 10px rgba(254, 240, 138, 0.45);
+}
+
+/* Interacción al pasar el dedo o el ratón */
 .love-word:hover {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.45) !important;
-    z-index: 20;
-    text-shadow: 0 0 14px currentColor;
+    opacity: 1 !important;
+    z-index: 50;
+    text-shadow: 0 0 18px currentColor;
 }
 
 .heart-beat {
-    animation: heartbeat 3s infinite ease-in-out;
+    animation: heartbeat 2.8s infinite ease-in-out;
 }
 
 @keyframes heartbeat {
     0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.03); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.02); }
+    14% { transform: scale(1.04); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.025); }
 }
 
 @keyframes pulseGlow {
-    0% { transform: scale(0.9); opacity: 0.7; }
+    0% { transform: scale(0.92); opacity: 0.75; }
     100% { transform: scale(1.15); opacity: 1; }
 }
 
-/* Adaptación móvil */
 @media (max-width: 680px) {
     .heart-canvas {
         width: 350px;
         height: 330px;
-    }
-    .love-word {
-        font-size: 0.6rem;
     }
 }
