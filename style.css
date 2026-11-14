@@ -1,9 +1,10 @@
 :root {
-    --bg-color: #080c14; /* Azul noche muy oscuro y elegante */
-    --glow-color: rgba(56, 133, 255, 0.12); /* Brillo azul ambiental */
+    --bg-color: #080c14;
+    --glow-color: rgba(56, 133, 255, 0.14);
     --text-primary: #f0f4f8;
-    --text-accent: #fcd34d; /* Amarillo dorado cálido para destacar */
-    --text-secondary: #8da4c4; /* Azul grisáceo suave para los idiomas */
+    --blue-tone: #60a5fa;   /* Azul vibrante suave */
+    --yellow-tone: #fcd34d; /* Amarillo dorado cálido */
+    --text-secondary: #cbd5e1;
 }
 
 * {
@@ -24,11 +25,10 @@ body {
     position: relative;
 }
 
-/* Luz ambiental suave en el fondo (combinando toques azules y destellos) */
 .background-glow {
     position: absolute;
-    width: 600px;
-    height: 600px;
+    width: 650px;
+    height: 650px;
     background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
@@ -46,28 +46,26 @@ body {
     align-items: center;
 }
 
-/* Lienzo donde se posicionarán las palabras */
 .heart-canvas {
     position: relative;
-    width: 600px;
-    height: 550px;
+    width: 650px;
+    height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Estilo de cada palabra individual */
+/* Estilo base de cada palabra */
 .love-word {
     position: absolute;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
-    font-weight: 400;
-    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
     white-space: nowrap;
     user-select: none;
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
-    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+    transform: translate(-50%, -50%) scale(0.4);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
     cursor: default;
 }
 
@@ -76,23 +74,36 @@ body {
     transform: translate(-50%, -50%) scale(1);
 }
 
-/* Efecto interactivo al pasar el ratón por encima (cambia a amarillo dorado intenso con brillo azulado) */
-.love-word:hover {
-    color: var(--text-accent);
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.35) !important;
-    text-shadow: 0 0 15px rgba(252, 211, 77, 0.6), 0 0 5px rgba(56, 133, 255, 0.8);
-    z-index: 10;
+/* Clases de color intercaladas */
+.color-blue {
+    color: var(--blue-tone);
+    text-shadow: 0 0 8px rgba(96, 165, 250, 0.25);
 }
 
-/* Mensaje central */
+.color-yellow {
+    color: var(--yellow-tone);
+    text-shadow: 0 0 8px rgba(252, 211, 77, 0.25);
+}
+
+/* Efecto al pasar el ratón */
+.love-word:hover {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.45) !important;
+    z-index: 20;
+    text-shadow: 0 0 14px currentColor;
+}
+
+/* Mensaje central con fondo difuminado para que destaque sobre el relleno */
 .center-message {
     text-align: center;
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 1.5s ease, transform 1.5s ease;
     pointer-events: none;
-    z-index: 5;
+    z-index: 10;
+    background: radial-gradient(circle, rgba(8, 12, 20, 0.92) 35%, rgba(8, 12, 20, 0.6) 65%, transparent 100%);
+    padding: 25px 40px;
+    border-radius: 50%;
 }
 
 .center-message.visible {
@@ -102,22 +113,21 @@ body {
 
 .center-message h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3.5rem;
+    font-size: 3.4rem;
     font-weight: 600;
     font-style: italic;
-    color: var(--text-accent);
-    text-shadow: 0 0 25px rgba(252, 211, 77, 0.3);
-    margin-bottom: 0.3rem;
+    color: var(--yellow-tone);
+    text-shadow: 0 0 25px rgba(252, 211, 77, 0.5), 0 0 10px rgba(96, 165, 250, 0.5);
+    margin-bottom: 0.2rem;
 }
 
 .center-message p {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--text-secondary);
 }
 
-/* Animación de latido suave cuando el corazón está completo */
 .heart-beat {
     animation: heartbeat 3s infinite ease-in-out;
 }
@@ -134,20 +144,23 @@ body {
     100% { transform: scale(1.15); opacity: 1; }
 }
 
-/* Adaptación para pantallas móviles */
+/* Adaptación móvil */
 @media (max-width: 650px) {
     .heart-canvas {
-        width: 340px;
-        height: 320px;
+        width: 350px;
+        height: 330px;
     }
     .love-word {
-        font-size: 0.75rem;
+        font-size: 0.62rem;
+    }
+    .center-message {
+        padding: 15px 25px;
     }
     .center-message h1 {
-        font-size: 2.3rem;
+        font-size: 2.2rem;
     }
     .center-message p {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         letter-spacing: 1px;
     }
 }
