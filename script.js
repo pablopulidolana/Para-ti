@@ -14,6 +14,11 @@ const phrases = [
 const shortPhrases = [...phrases].sort((a, b) => a.length - b.length);
 
 const canvas = document.getElementById('heart-canvas');
+const startBtn = document.getElementById('start-btn');
+const welcomeScreen = document.getElementById('welcome-screen');
+const bgMusic = document.getElementById('bg-music');
+
+let heartDrawn = false;
 
 function isOverlapping(rect1, rect2, margin = 5) {
     return !(
@@ -81,12 +86,10 @@ function drawHeart() {
         const margin = isMobile ? 3.5 : 5.5;
 
         for (let i = 0; i <= halfCandidates; i++) {
-            // Ángulo en el lado derecho (0 a PI) y su espejo en el lado izquierdo (2*PI a PI)
             const angleOffset = (layerIndex % 2) * (Math.PI / (halfCandidates * 2));
             const tRight = (i / halfCandidates) * Math.PI + angleOffset;
             const tLeft = 2 * Math.PI - tRight;
 
-            // Alternamos el orden de prioridad entre derecha e izquierda
             const angles = (i % 2 === 0) ? [tRight, tLeft] : [tLeft, tRight];
 
             angles.forEach(t => {
@@ -105,7 +108,7 @@ function drawHeart() {
         }
     });
 
-    // 2. Segunda pasada: rellenar huecos pequeños restantes (especialmente en el lóbulo derecho e interior)
+    // 2. Segunda pasada: rellenar huecos pequeños restantes
     let shortIndex = 0;
     scales.forEach((scale) => {
         const extraSteps = 60;
@@ -142,12 +145,24 @@ function drawHeart() {
     }, totalAnimationTime);
 }
 
-document.fonts.ready.then(() => {
-    drawHeart();
+// Al pulsar el botón, ocultamos la pantalla, iniciamos la música y dibujamos el corazón
+startBtn.addEventListener('click', () => {
+    welcomeScreen.classList.add('hidden');
+    
+    bgMusic.volume = 0.5;
+    bgMusic.play().catch(error => {
+        console.log("No se pudo reproducir el audio:", error);
+    });
+
+    document.fonts.ready.then(() => {
+        drawHeart();
+        heartDrawn = true;
+    });
 });
 
 let resizeTimer;
 window.addEventListener('resize', () => {
+    if (!heartDrawn) return;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
         canvas.classList.remove('heart-beat');

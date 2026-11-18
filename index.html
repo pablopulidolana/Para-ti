@@ -13,6 +13,16 @@
 <body>
     <div class="background-glow"></div>
     
+    <!-- Pantalla de bienvenida con el botón -->
+    <div id="welcome-screen" class="welcome-screen">
+        <button id="start-btn" class="start-btn">Pulsa aquí</button>
+    </div>
+
+    <!-- Archivo de audio oculto (asegúrate de tener cancion.mp3 en la carpeta) -->
+    <audio id="bg-music" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+
     <main class="container">
         <div id="heart-canvas" class="heart-canvas">
             <!-- El mensaje central ha sido eliminado -->

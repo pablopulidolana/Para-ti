@@ -36,6 +36,49 @@ body {
     animation: pulseGlow 6s infinite alternate ease-in-out;
 }
 
+/* Pantalla y botón de bienvenida */
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.welcome-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.start-btn {
+    font-family: 'Montserrat', sans-serif;
+    background: transparent;
+    color: var(--text-accent);
+    border: 1px solid var(--text-accent);
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 15px rgba(252, 211, 77, 0.15);
+}
+
+.start-btn:hover {
+    background: var(--text-accent);
+    color: var(--bg-color);
+    box-shadow: 0 0 25px rgba(252, 211, 77, 0.4);
+    transform: scale(1.05);
+}
+
 .container {
     position: relative;
     z-index: 1;
